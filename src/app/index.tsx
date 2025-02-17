@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Alert, TextInput} from "react-native"
 import { useState } from "react"
 import { Button } from "../components/button"
 import { Input } from "../components/input"
+import { router } from "expo-router"
 
 export default function Index(){
 
@@ -12,16 +13,13 @@ export default function Index(){
         Alert.alert(`Ola, ${name}`)
     }
 
-    function onChangeText(text: string){
-        console.log(text)
-        setName(text)
-    }
-
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Ola, {name}</Text>
-            <Input placeholder={"Digite seu nome..."} onChangeText={(text) => onChangeText(text)} />
-            <Button onPress={mensage} title="Continar"  />
+            <Input placeholder={"Digite seu nome..."} onChangeText={setName} />
+            {/* <Button onPress={() => router.navigate("/dashboard")} title="Continar" /> */}
+            {/* <Button onPress={() => router.push({ pathname: "/dashboard", params: { name } })} title="Continuar" /> */}
+            <Button onPress={() => router.push({ pathname: "/dashboard", params: { name } })} disabled={!name.trim()} title="Continuar" />
         </View>
     )
 }
